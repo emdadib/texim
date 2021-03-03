@@ -62,14 +62,16 @@ namespace texim
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapAreaControllerRoute(
+            name: "MyAreaAdmin",
+            areaName: "Admin",
+            pattern: "Admin/{controller=Dashboard}/{action=Index}/{id?}");
+
+
                 //endpoints.MapControllerRoute(
                 //  name: "areas",
-                //  pattern: "{area:Admin}/{controller=Dashboard}/{action=Index}/{id?}"
+                //  pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
                 //);
-                endpoints.MapControllerRoute(
-                  name: "areas",
-                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
 
                 endpoints.MapControllerRoute(
                     name: "default",

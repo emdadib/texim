@@ -15,5 +15,18 @@ namespace texim.Data
         }
 
          public DbSet<Portfolio> Portfolios { get; set; }
+        public DbSet<PortfolioImage> PortfolioImages { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCategory> ProductCategorys { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<WebBanner> WebBanners { get; set; }
+        public DbSet<WebHtml> WebHtmls { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<BlogCategory> BlogCategorys { get; set; }
+        public DbSet<BlogComment> BlogComments { get; set; }
+        public DbSet<BlogTag> BlogTags { get; set; }
+       
     }
 }
