@@ -10,7 +10,7 @@ namespace texim.Models
     {
         [Key]
         public int BrandId { get; set; }
-        public Guid BrandKey { get; set; } 
+        public Guid BrandKey { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public string Logo { get; set; }

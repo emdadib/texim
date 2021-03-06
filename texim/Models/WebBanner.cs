@@ -32,6 +32,7 @@ namespace texim.Models
         public string Thumbnail { get; set; }
         public string SlideStyle { get; set; }
         public bool Status { get; set; }
+        public DateTime LastModified { get; set; }
        
 
         //Initial Fields
