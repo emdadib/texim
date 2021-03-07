@@ -34,7 +34,6 @@ namespace texim.Models
         [StringLength(150)]
         public string AuthorName { get; set; }
         public string AboutAuthor { get; set; }
-        public string PostedBy { get; set; }
         public DateTime PostedAt { get; set; }
         public DateTime LastModified { get; set; }
         public DateTime PublishDate { get; set; }
