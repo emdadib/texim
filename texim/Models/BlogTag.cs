@@ -14,5 +14,14 @@ namespace texim.Models
         [StringLength(100)]
         public string TagName { get; set; }
         public string Slug { get; set; }
+
+        //Initial Fields
+        public int CreateBy { get; set; }
+        public DateTime CreateAt { get; set; }
+        public int UpdateBy { get; set; }
+        public DateTime UpdateAt { get; set; }
+        public int DeleteBy { get; set; }
+        public DateTime DeleteAt { get; set; }
+        public bool IsDelete { get; set; }
     }
 }

@@ -21,4 +21,12 @@
     <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\admin-assets\plugins\pdfmake\pdfmake.js" />
+    <None Include="wwwroot\admin-assets\plugins\pdfmake\pdfmake.js.map" />
+    <None Include="wwwroot\admin-assets\plugins\pdfmake\pdfmake.min.js" />
+    <None Include="wwwroot\admin-assets\plugins\pdfmake\pdfmake.min.js.map" />
+    <None Include="wwwroot\admin-assets\plugins\pdfmake\vfs_fonts.js" />
+  </ItemGroup>
+
 </Project>

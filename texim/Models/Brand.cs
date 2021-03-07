@@ -16,5 +16,19 @@ namespace texim.Models
         public string Logo { get; set; }
         public string Description { get; set; }
         public bool Status { get; set; }
+
+        //Initial Fields
+        public int CreateBy { get; set; }
+        public DateTime CreateAt { get; set; }
+        public int UpdateBy { get; set; }
+        public DateTime UpdateAt { get; set; }
+        public int DeleteBy { get; set; }
+        public DateTime DeleteAt { get; set; }
+        public bool IsDelete { get; set; }
+
+        //SEO Fields
+        public string MetaTitle { get; set; }
+        public string MetaKeyword { get; set; }
+        public string MetaDescription { get; set; }
     }
 }

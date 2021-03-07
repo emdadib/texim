@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace texim.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("admin/dashboard/")]
+    [Route("Admin/dashboard/")]
     public class DashboardController : Controller
     {
 
