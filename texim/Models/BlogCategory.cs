@@ -14,7 +14,6 @@ namespace texim.Models
         [StringLength(200)]
         public string Slug { get; set; }
         public bool Status { get; set; }
-        public DateTime LastModified { get; set; }
 
         //Initial Fields
         public int CreateBy { get; set; }

@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace texim.Models
+namespace texim.Areas.Admin.Models
 {
-    public class ProductImage
+    public class ProductImageViewModel
     {
-        [Key]
         public int ProductImageId { get; set; }
         public Guid ProductImageKey { get; set; }
-        [ForeignKey("Product")]
+        public string ProductTitle { get; set; }
         public int ProductId { get; set; }
         [StringLength(150)]
         public string Title { get; set; }
@@ -24,8 +22,5 @@ namespace texim.Models
         public string Thumb { get; set; }
         public DateTime LastModified { get; set; }
         public bool Status { get; set; }
-        public bool IsDelete { get; set; }
-
-        public virtual Product Product { get; set; }
     }
 }

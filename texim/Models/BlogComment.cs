@@ -15,6 +15,8 @@ namespace texim.Models
         [StringLength(200)]
         public string Email { get; set; }
         public string Comment { get; set; }
-        public DateTime LastModified { get; set; }
+        public DateTime CommentAt { get; set; }
+        public bool IsAproved { get; set; }
+        public int ToReplayCommentId { get; set; }
     }
 }

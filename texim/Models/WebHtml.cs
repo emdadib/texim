@@ -28,10 +28,7 @@ namespace texim.Models
         public string PictureTwo { get; set; }
 
         public string PictureThree { get; set; }
-        [Required]
         public bool Status { get; set; }
-        public DateTime LastModified { get; set; }
-
         //Initial Fields
         public int CreateBy { get; set; }
         public DateTime CreateAt { get; set; }

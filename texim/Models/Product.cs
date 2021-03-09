@@ -16,9 +16,7 @@ namespace texim.Models
         [Display(Name = "Product Category")]
         [Required]
         public int ProductCategoryId { get; set; }
-        [ForeignKey("ProductLabel")]
-        [Display(Name = "Product Label")]
-        public int ProductLabelId { get; set; }
+
         public Guid ProductKey { get; set; }
         [StringLength(250)]
         [Required]
@@ -53,24 +51,21 @@ namespace texim.Models
 
 
         public bool Status { get; set; }
-        //Specifications
-        [Display(Name = "Room Usage")]
-        public string RoomUsage { get; set; }
-        public string Cleaning { get; set; }
-        public string Movement { get; set; }
-        public string Linings { get; set; }
         public int BrandId { get; set; }
 
 
         [Display(Name = "Publish Date")]
         public DateTime PublishDate { get; set; }
+        //Initial Fields
+        public int CreateBy { get; set; }
         public DateTime CreateAt { get; set; }
+        public int UpdateBy { get; set; }
         public DateTime UpdateAt { get; set; }
-        public string CreateBy { get; set; }
-        public string UpdateBy { get; set; }
+        public int DeleteBy { get; set; }
+        public DateTime DeleteAt { get; set; }
+        public bool IsDelete { get; set; }
 
         public virtual ProductCategory ProductCategory { get; set; }
-       // public virtual ProductLabel ProductLabel { get; set; }
 
     }
 }

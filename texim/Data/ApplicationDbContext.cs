@@ -9,12 +9,16 @@ namespace texim.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        public ApplicationDbContext()
+        {
+        }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
 
-         public DbSet<Portfolio> Portfolios { get; set; }
+        public DbSet<Portfolio> Portfolios { get; set; }
         public DbSet<PortfolioImage> PortfolioImages { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Product> Products { get; set; }
