@@ -1,5 +1,4 @@
-﻿using texim.Data;
-using texim.Data.DAL;
+﻿using texim.Data.DAL;
 using texim.Data.IDAL;
 using texim.Models;
 using System;
@@ -12,7 +11,12 @@ namespace texim.Data.Services
 {
     public class WebBannerService
     {
-        static IUnitOfWork unitOfWork = new UnitOfWork(new ApplicationDbContext());
+        // static IUnitOfWork unitOfWork = new UnitOfWork(new ApplicationDbContext());
+        public static IUnitOfWork unitOfWork;
+        public WebBannerService(IUnitOfWork _unitOfWork)
+        {
+            unitOfWork = _unitOfWork;
+        }
         public static async Task<IEnumerable<WebBanner>> GetBannerAsync()
         {
             return await unitOfWork.Repository<WebBanner>().GetAllAsync();

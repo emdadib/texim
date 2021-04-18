@@ -11,12 +11,16 @@ using System.Threading.Tasks;
 using System.Web;
 using texim.Areas.Admin.Models;
 
-namespace texim.Logic.Services
+namespace texim.Data.Services
 {
     public class BlogService
     {
-        static IUnitOfWork unitOfWork = new UnitOfWork(new ApplicationDbContext());
-
+        //static IUnitOfWork unitOfWork = new UnitOfWork(new ApplicationDbContext());
+        static IUnitOfWork unitOfWork;
+        public BlogService(IUnitOfWork _unitOfWork)
+        {
+            unitOfWork = _unitOfWork;
+        }
         public static async Task<IEnumerable<Blog>> GetBlogs()
         {
             return await unitOfWork.Repository<Blog>().FindAllAsync(x => x.Status);
@@ -56,7 +60,6 @@ namespace texim.Logic.Services
             blog.Status = model.Status;
             blog.Title = model.Title;
             blog.Slug = model.Slug;
-            blog.PublishDate = model.PublishDate;
             blog.Image = !string.IsNullOrEmpty(model.Image) ? model.Image : blog.Image;
             blog.FeaturedImage = !string.IsNullOrEmpty(model.FeaturedImage) ? model.FeaturedImage : blog.FeaturedImage;
             blog.Video = !string.IsNullOrEmpty(model.Video) ? model.Video : blog.Video; ;
@@ -92,7 +95,6 @@ namespace texim.Logic.Services
             blogVm.Status = blog.Status;
             blogVm.Title = blog.Title;
             blogVm.Slug = blog.Slug;
-            blogVm.PublishDate = blog.PublishDate;
             blogVm.Image = blog.Image;
             blogVm.FeaturedImage = blog.FeaturedImage;
             blogVm.Video = blog.Video;
@@ -125,7 +127,6 @@ namespace texim.Logic.Services
                 Status = viewModel.Status,
                 Title = viewModel.Title,
                 Slug = viewModel.Slug,
-                PublishDate = viewModel.PublishDate.HasValue ? viewModel.PublishDate.Value : DateTime.Now,
                 Image = viewModel.Image,
                 FeaturedImage = viewModel.FeaturedImage,
                 Video = viewModel.Video,
@@ -158,7 +159,6 @@ namespace texim.Logic.Services
                 Status = blog.Status,
                 Title = blog.Title,
                 Slug = blog.Slug,
-                PublishDate = blog.PublishDate,
                 Image = blog.Image,
                 FeaturedImage = blog.FeaturedImage,
                 Video = blog.Video,
@@ -190,33 +190,34 @@ namespace texim.Logic.Services
 
             return BlogList;
         }
-        public static CategoryWithBlog GetCategoryWithBlogs(string slug)
-        {
-            List<Blog> BlogList = new List<Blog>();
-            var category = BlogCategoryService.GetCategoryBySlug(slug);
 
-            List<Blog> Blogs = unitOfWork.Repository<Blog>().FindAll(x => x.BlogCategoryId == category.BlogCategoryId).Where(x => x.Status).ToList();
-            foreach (var blog in Blogs)
-            {
-                BlogList.Add(blog);
-            }
-            CategoryWithBlog cwb = new CategoryWithBlog
-            {
-                CategoryName = category.CategoryName,
-                Slug = category.Slug,
-                Keyword = category.Keyword,
-                BlogCategoryId = category.BlogCategoryId,
-                MetaDescription = category.MetaDescription,
-                MetaTitle = category.MetaTitle,
-                Canonical = category.Canonical,
-                OgDescription = category.OgDescription,
-                OgImage = category.OgImage,
-                OgTitle = category.OgTitle,
-                Blogs = BlogList,
-                Status = category.Status
-            };
-            return cwb;
-        }
+        //public static CategoryWithBlog GetCategoryWithBlogs(string slug)
+        //{
+        //    List<Blog> BlogList = new List<Blog>();
+        //    var category = BlogCategoryService.GetCategoryBySlug(slug);
+
+        //    List<Blog> Blogs = unitOfWork.Repository<Blog>().FindAll(x => x.BlogCategoryId == category.BlogCategoryId).Where(x => x.Status).ToList();
+        //    foreach (var blog in Blogs)
+        //    {
+        //        BlogList.Add(blog);
+        //    }
+        //    CategoryWithBlog cwb = new CategoryWithBlog
+        //    {
+        //        CategoryName = category.CategoryName,
+        //        Slug = category.Slug,
+        //        Keyword = category.Keyword,
+        //        BlogCategoryId = category.BlogCategoryId,
+        //        MetaDescription = category.MetaDescription,
+        //        MetaTitle = category.MetaTitle,
+        //        Canonical = category.Canonical,
+        //        OgDescription = category.OgDescription,
+        //        OgImage = category.OgImage,
+        //        OgTitle = category.OgTitle,
+        //        Blogs = BlogList,
+        //        Status = category.Status
+        //    };
+        //    return cwb;
+        //}
 
         public static async Task<bool> RemoveBlog(Blog model)
         {
@@ -279,12 +280,12 @@ namespace texim.Logic.Services
         #region Web
         public static IEnumerable<Blog> GetTopBlogs()
         {
-            return unitOfWork.Repository<Blog>().FindAll(x => x.Status).OrderByDescending(x => x.PublishDate).Take(5);
+            return unitOfWork.Repository<Blog>().FindAll(x => x.Status).OrderByDescending(x => x.LastModified).Take(5);
         }
 
         public static IEnumerable<Blog> GetCategoryWiseBlogs(int categoryId)
         {
-            return unitOfWork.Repository<Blog>().FindAll(x => x.Status && x.BlogCategoryId == categoryId).OrderByDescending(x => x.PublishDate).Take(5);
+            return unitOfWork.Repository<Blog>().FindAll(x => x.Status && x.BlogCategoryId == categoryId).OrderByDescending(x => x.LastModified).Take(5);
         }
 
         #endregion

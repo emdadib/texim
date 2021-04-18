@@ -1,5 +1,4 @@
-﻿using texim.Data;
-using texim.Data.DAL;
+﻿using texim.Data.DAL;
 using texim.Data.IDAL;
 using texim.Models;
 using System;
@@ -8,14 +7,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace texim.Logic.Services
+namespace texim.Data.Services
 {
     public class WebHtmlService
     {
 
 
-        static IUnitOfWork unitOfWork = new UnitOfWork(new ApplicationDbContext());
-
+        //static IUnitOfWork unitOfWork = new UnitOfWork(new ApplicationDbContext());
+        static IUnitOfWork unitOfWork;
+        public WebHtmlService(IUnitOfWork _unitOfWork)
+        {
+            unitOfWork = _unitOfWork;
+        }
         public static async Task<IEnumerable<WebHtml>> GetHtmls()
         {
             return await unitOfWork.Repository<WebHtml>().GetAllAsync();

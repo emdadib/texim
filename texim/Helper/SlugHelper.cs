@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 
@@ -10,8 +11,9 @@ namespace texim.Helper
     {
         public static string RemoveAccent(string txt)
         {
-            byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(txt);
-            return System.Text.Encoding.ASCII.GetString(bytes);
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            byte[] bytes = Encoding.GetEncoding("windows-1254").GetBytes(txt);
+            return Encoding.ASCII.GetString(bytes);
         }
 
         public static string GetEncodedTitle(string title)

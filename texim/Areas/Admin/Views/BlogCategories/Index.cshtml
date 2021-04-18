@@ -1,0 +1,98 @@
+﻿@model IEnumerable<texim.Models.BlogCategory>
+@{
+    ViewData["Title"] = "Blog Category";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@*@Html.Partial("_Breadcrumb")*@
+
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h3 class="card-title">@ViewBag.Title List</h3>
+                        </div>
+                        <div>
+                            <a asp-action="Create" class="btn btn-primary"> <i class="fa fa-plus-circle"></i> Add new</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    @if (Model.Any())
+                    {
+                        <div class="table-responsive">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>SEO Keyword</th>
+                                        <th>SEO Description</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        var SeoSmallDescription = "";
+                                        if (!string.IsNullOrEmpty(item.MetaDescription) && item.MetaDescription.Length > 60)
+                                        {
+                                            SeoSmallDescription = item.MetaDescription.Substring(0, 50);
+                                        }
+                                        else { SeoSmallDescription = item.MetaDescription; }
+
+                                        <tr>
+                                            <td>
+                                                @if (!string.IsNullOrEmpty(item.OgImage))
+                                                {
+                                                    <img src="@item.OgImage" width="60" height="60" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Content/admin-assets/dist/img/imagenotavailable.png" width="60" height="60" />
+                                                }
+                                                &nbsp;  @Html.DisplayName(item.CategoryName)
+                                            </td>
+
+                                            <td>@Html.DisplayName(item.Keyword)</td>
+                                            <td>@SeoSmallDescription</td>
+                                            @if (item.Status)
+                                            {
+                                                <td><a href="javascrip:;" class="btn btn-success btn-sm"><i class="fa fa-check-circle"></i></a></td>
+                                            }
+                                            else
+                                            {
+                                                <td><a href="javascrip:;" class="btn btn-danger btn-sm"><i class="fa fa-times-circle"></i></a></td>
+                                            }
+                                            <td>
+                                                <a asp-action="Edit" asp-route-id="@item.BlogCategoryId" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                                <a asp-action="Delete" asp-route-id="@item.BlogCategoryId" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+
+                                            </td>
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p>No data found!</p>
+                    }
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>

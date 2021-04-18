@@ -9,12 +9,16 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace texim.Logic.Services
+namespace texim.Data.Services
 {
     public class CommonService
     {
-        static IUnitOfWork unitOfWork = new UnitOfWork(new ApplicationDbContext());
-
+        //    static IUnitOfWork unitOfWork = new UnitOfWork(new ApplicationDbContext());
+        static IUnitOfWork unitOfWork;
+        public CommonService(IUnitOfWork _unitOfWork)
+        {
+            unitOfWork = _unitOfWork;
+        }
         //Save visitor requested Appointment
 
         public static IEnumerable<Brand> GetBrands()

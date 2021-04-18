@@ -9,38 +9,44 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Identity;
+using texim.Helper;
 
-namespace texim.Logic.Services
+namespace texim.Data.Services
 {
     public class BlogCategoryService
     {
-        static IUnitOfWork unitOfWork = new UnitOfWork(new ApplicationDbContext());
-
-        public static async Task<IEnumerable<BlogCategory>> GetCategories()
+        private readonly IUnitOfWork unitOfWork;
+        public BlogCategoryService(IUnitOfWork _unitOfWork)
         {
-            return await unitOfWork.Repository<BlogCategory>().GetAllAsync();
+            unitOfWork = _unitOfWork;
         }
 
-        public static IEnumerable<BlogCategory> GetCategoryList()
+        public async Task<IEnumerable<BlogCategory>> GetCategories() => await unitOfWork.Repository<BlogCategory>().GetAllAsync();
+
+        public IEnumerable<BlogCategory> GetCategoryList()
         {
             return unitOfWork.Repository<BlogCategory>().GetAll();
         }
-        public static BlogCategory GetCategory(int id)
+        public BlogCategory GetCategory(int id)
         {
             return unitOfWork.Repository<BlogCategory>().GetById(id);
         }
-        public static async Task<bool> SaveBlogCategory(BlogCategory model)
+        public async Task<bool> SaveBlogCategory(BlogCategory model)
         {
-            model.UpdateAt = DateTime.Now;
+           // IUnitOfWork unitOfWork = new UnitOfWork();
+            model.Slug = SlugHelper.GetEncodedTitle(model.CategoryName);
+            model.IsDelete = false;
+            model.LastModified = DateTime.Now;
+
             var result = await unitOfWork.Repository<BlogCategory>().InsertAsync(model);
             if (result != null) return true;
             return false;
         }
-        public static async Task<bool> UpdateBlogCategory(BlogCategory model)
+        public async Task<bool> UpdateBlogCategory(BlogCategory model)
         {
             BlogCategory category = GetCategory(model.BlogCategoryId);
 
-            category.UpdateAt = DateTime.Now;
+            category.LastModified = DateTime.Now;
             category.CategoryName = model.CategoryName;
             category.Canonical = model.Canonical;
             category.Keyword = model.Keyword;
@@ -57,14 +63,14 @@ namespace texim.Logic.Services
             if (result != null) return true;
             return false;
         }
-        public static async Task<bool> RemoveBlogCategory(BlogCategory model)
+        public async Task<bool> RemoveBlogCategory(BlogCategory model)
         {
             var result = await unitOfWork.Repository<BlogCategory>().DeleteAsync(model);
             if (result != 0) return true;
             return false;
         }
         //Category dropdown
-        public static IList<SelectListItem> GetBlogCategories(int? id = 0)
+        public IList<SelectListItem> GetBlogCategories(int? id = 0)
         {
             var category = unitOfWork.Repository<BlogCategory>().GetAll().Select(cat =>
                           new SelectListItem
@@ -79,7 +85,7 @@ namespace texim.Logic.Services
         }
 
        
-        public static BlogCategory GetCategoryBySlug(string slug)
+        public BlogCategory GetCategoryBySlug(string slug)
         {
             return unitOfWork.Repository<BlogCategory>().Find(x => x.Slug == slug);
         }

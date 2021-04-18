@@ -3,22 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using texim.Data;
 
-namespace texim.Data.Migrations
+namespace texim.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210307044432_DbUpdateAlterTables")]
-    partial class DbUpdateAlterTables
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.3")
+                .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -283,9 +281,6 @@ namespace texim.Data.Migrations
                     b.Property<DateTime>("PostedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("PublishDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Slug")
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
@@ -332,18 +327,6 @@ namespace texim.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<DateTime>("CreateAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("CreateBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DeleteAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DeleteBy")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
 
@@ -351,6 +334,9 @@ namespace texim.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("MetaDescription")
                         .HasMaxLength(500)
@@ -378,15 +364,9 @@ namespace texim.Data.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("UpdateAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UpdateBy")
-                        .HasColumnType("int");
-
                     b.HasKey("BlogCategoryId");
 
-                    b.ToTable("BlogCategorys");
+                    b.ToTable("BlogCategories");
                 });
 
             modelBuilder.Entity("texim.Models.BlogComment", b =>
@@ -462,15 +442,6 @@ namespace texim.Data.Migrations
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CreateBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DeleteAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DeleteBy")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -501,9 +472,6 @@ namespace texim.Data.Migrations
                     b.Property<DateTime>("UpdateAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UpdateBy")
-                        .HasColumnType("int");
-
                     b.HasKey("BrandId");
 
                     b.ToTable("Brands");
@@ -518,15 +486,6 @@ namespace texim.Data.Migrations
 
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("CreateBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DeleteAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DeleteBy")
-                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -554,9 +513,6 @@ namespace texim.Data.Migrations
 
                     b.Property<DateTime>("UpdateAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("UpdateBy")
-                        .HasColumnType("int");
 
                     b.HasKey("PortfolioId");
 
@@ -606,15 +562,6 @@ namespace texim.Data.Migrations
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CreateBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DeleteAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DeleteBy")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
 
@@ -648,9 +595,6 @@ namespace texim.Data.Migrations
                     b.Property<Guid>("ProductKey")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("PublishDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Slug")
                         .HasColumnType("nvarchar(max)");
 
@@ -669,9 +613,6 @@ namespace texim.Data.Migrations
 
                     b.Property<DateTime>("UpdateAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("UpdateBy")
-                        .HasColumnType("int");
 
                     b.HasKey("ProductId");
 
@@ -697,15 +638,6 @@ namespace texim.Data.Migrations
 
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("CreateBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DeleteAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DeleteBy")
-                        .HasColumnType("int");
 
                     b.Property<string>("IconThumb")
                         .HasColumnType("nvarchar(max)");
@@ -758,12 +690,9 @@ namespace texim.Data.Migrations
                     b.Property<DateTime>("UpdateAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UpdateBy")
-                        .HasColumnType("int");
-
                     b.HasKey("ProductCategoryId");
 
-                    b.ToTable("ProductCategorys");
+                    b.ToTable("ProductCategories");
                 });
 
             modelBuilder.Entity("texim.Models.ProductImage", b =>
@@ -779,9 +708,6 @@ namespace texim.Data.Migrations
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDelete")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Keyword")
                         .HasColumnType("nvarchar(max)");
@@ -865,15 +791,6 @@ namespace texim.Data.Migrations
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CreateBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DeleteAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DeleteBy")
-                        .HasColumnType("int");
-
                     b.Property<string>("Image")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
@@ -911,9 +828,6 @@ namespace texim.Data.Migrations
                     b.Property<DateTime>("UpdateAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UpdateBy")
-                        .HasColumnType("int");
-
                     b.HasKey("WebBannerId");
 
                     b.ToTable("WebBanners");
@@ -934,15 +848,6 @@ namespace texim.Data.Migrations
 
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("CreateBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DeleteAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DeleteBy")
-                        .HasColumnType("int");
 
                     b.Property<string>("Identifier")
                         .HasMaxLength(30)
@@ -989,9 +894,6 @@ namespace texim.Data.Migrations
 
                     b.Property<DateTime>("UpdateAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("UpdateBy")
-                        .HasColumnType("int");
 
                     b.HasKey("WebHtmlId");
 

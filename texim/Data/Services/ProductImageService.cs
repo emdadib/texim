@@ -9,14 +9,18 @@ using System.Threading.Tasks;
 using System.Web;
 using texim.Areas.Admin.Models;
 
-namespace texim.Logic.Services
+namespace texim.Data.Services
 {
     public class ProductImageService
     {
-        
 
-        static IUnitOfWork unitOfWork = new UnitOfWork(new ApplicationDbContext());
 
+        //static IUnitOfWork unitOfWork = new UnitOfWork(new ApplicationDbContext());
+        static IUnitOfWork unitOfWork;
+        public ProductImageService(IUnitOfWork _unitOfWork)
+        {
+            unitOfWork = _unitOfWork;
+        }
         public static async Task<IEnumerable<ProductImage>> GetProductImages()
         {
             return await unitOfWork.Repository<ProductImage>().GetAllAsync();

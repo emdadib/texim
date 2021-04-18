@@ -3,19 +3,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using texim.Data;
 using texim.Data.DAL;
 using System.Threading.Tasks;
 using texim.Models;
 using texim.Areas.Admin.Models;
 using texim.Helper;
-namespace texim.Logic.Services
+namespace texim.Data.Services
 {
     public class ProductService
     {
 
-        static IUnitOfWork unitOfWork = new UnitOfWork(new ApplicationDbContext());
-
+        //static IUnitOfWork unitOfWork = new UnitOfWork(new ApplicationDbContext());
+        static IUnitOfWork unitOfWork;
+        public ProductService(IUnitOfWork _unitOfWork)
+        {
+            unitOfWork = _unitOfWork;
+        }
         public static async Task<IEnumerable<Product>> GetProducts()
         {
             return await unitOfWork.Repository<Product>().GetAllAsync();
@@ -49,8 +52,6 @@ namespace texim.Logic.Services
             product.Status = model.Status;
             product.Title = model.Title;
             product.Slug = model.Slug;
-            product.PublishDate = model.PublishDate;
-            product.UpdateBy = model.UpdateBy;
             //SEO
             product.Keyword = model.Keyword;
             product.MetaDescription = model.MetaDescription;
@@ -98,7 +99,6 @@ namespace texim.Logic.Services
 
                     ProductCategoryId = product.ProductCategoryId,
                     ProductId = product.ProductId,
-                    PublishDate = product.PublishDate,
                     SmallDetails = product.SmallDetails ?? "",
                     Title = product.Title ?? "",
                     Status = product.Status,
@@ -161,7 +161,6 @@ namespace texim.Logic.Services
                
                 ProductCategoryId = product.ProductCategoryId,
                 ProductId = product.ProductId,
-                PublishDate = product.PublishDate,
                 SmallDetails = product.SmallDetails,
                 Title = product.Title,
                 Slug = product.Slug,

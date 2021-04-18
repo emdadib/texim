@@ -30,12 +30,8 @@ namespace texim.Models
         public string PictureThree { get; set; }
         public bool Status { get; set; }
         //Initial Fields
-        public int CreateBy { get; set; }
         public DateTime CreateAt { get; set; }
-        public int UpdateBy { get; set; }
         public DateTime UpdateAt { get; set; }
-        public int DeleteBy { get; set; }
-        public DateTime DeleteAt { get; set; }
         public bool IsDelete { get; set; }
 
         //SEO Fields

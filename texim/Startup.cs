@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -12,6 +13,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using texim.Data;
+using texim.Data.DAL;
+using texim.Data.IDAL;
+using texim.Data.Services;
 
 namespace texim
 {
@@ -36,10 +40,14 @@ namespace texim
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+            services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+            services.AddTransient<BlogCategoryService, BlogCategoryService>();
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider provider)
         {
             if (env.IsDevelopment())
             {
@@ -63,9 +71,9 @@ namespace texim
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapAreaControllerRoute(
-            name: "MyAreaAdmin",
-            areaName: "Admin",
-            pattern: "Admin/{controller=Dashboard}/{action=Index}/{id?}");
+                name: "MyAreaAdmin",
+                areaName: "Admin",
+                pattern: "Admin/{controller=Dashboard}/{action=Index}/{id?}");
 
 
                 //endpoints.MapControllerRoute(

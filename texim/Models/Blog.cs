@@ -36,7 +36,6 @@ namespace texim.Models
         public string AboutAuthor { get; set; }
         public DateTime PostedAt { get; set; }
         public DateTime LastModified { get; set; }
-        public DateTime PublishDate { get; set; }
 
         //Seo
         [Display(Name = "Meta Title"), StringLength(300)]

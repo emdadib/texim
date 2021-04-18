@@ -1,0 +1,121 @@
+﻿@model texim.Models.BlogCategory
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@*@Html.Partial("_Breadcrumb")*@
+<partial name="_Breadcrumb" />
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <!-- left column -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">@ViewData["Title"]</h3>
+                    </div>
+
+                    <form asp-controller="BlogCategories" asp-action="Create" asp-area="Admin" method="post" enctype="multipart/form-data">
+                        <div class="card-body">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="categoryName">Category Name</label>
+                                    <input asp-for="CategoryName" class="form-control" id="categoryName" />
+                                    <span asp-validation-for="CategoryName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">SEO</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="meta-title">Meta Title</label>
+                                                <input asp-for="MetaTitle" class="form-control" id="meta-title" />
+                                                <span asp-validation-for="MetaTitle" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="keyword">Keyword</label>
+                                                <input asp-for="Keyword" class="form-control" id="keyword" />
+                                                <span asp-validation-for="Keyword" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="meta-description">Meta Description</label>
+                                                <input asp-for="MetaDescription" class="form-control" id="meta-description" />
+                                                <span asp-validation-for="MetaDescription" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="og-description">OG Description</label>
+                                                <input asp-for="OgDescription" class="form-control" id="og-description" />
+                                                <span asp-validation-for="OgDescription" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="og-title">OG Title</label>
+                                                <input asp-for="OgTitle" class="form-control" id="og-title" />
+                                                <span asp-validation-for="OgTitle" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="og-image">OG: Image</label>
+                                                <input asp-for="OgImage" class="form-control" type="file" id="og-image" />
+                                                <span asp-validation-for="OgImage" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="canonical-url">Canonical URL</label>
+                                                <input asp-for="Canonical" class="form-control" id="canonical-url" />
+                                                <span asp-validation-for="Canonical" class="text-danger"></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-check">
+                                @Html.CheckBoxFor(m => m.Status, new { htmlAttributes = new { @class = "form-check-input", id = "status" } })
+                                @Html.LabelFor(m => m.Status, "Is Active?", new { htmlAttributes = new { @class = "form-check-label", @for = "status" } })
+
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <a asp-action="Index" class="btn btn-default"><i class="fa fa-arrow-alt-circle-left"></i> Back to List</a>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle"></i> Submit</button>
+                        </div>
+
+                    </form>
+                </div>
+                <!-- /.card -->
+            </div>
+            <!--/.col (left) -->
+            <div class="col-md-3"></div>
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+@*<script>
+        $.validator.unobtrusive.parse("#frm");
+    </script>*@

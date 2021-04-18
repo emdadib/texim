@@ -26,6 +26,10 @@ namespace texim.Data.DAL
             _dbContext = dbContext;
         }
 
+        public UnitOfWork()
+        {
+        }
+
         public IRepository<T> Repository<T>() where T : class
         {
             if (Repositories.Keys.Contains(typeof(T)))

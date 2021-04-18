@@ -14,19 +14,15 @@ namespace texim.Helper
 {
     public class ImageService
     {
-        private readonly IWebHostEnvironment _hostingEnv;
-        public ImageService(IWebHostEnvironment hostingEnv)
-        {
-            _hostingEnv = hostingEnv;
-        }
+   
 
         //Have to test it. 
-        public  async Task<string> ImageSave(IFormFile file)
+        public static  async Task<string> ImageSave(IFormFile file, string rootpath = "")
         {
             var imagePath = "";
             if (file != null && file.Length > 0)
             {
-                string rootpath = _hostingEnv.WebRootPath;
+ 
                 var pathWithFolderName = Path.Combine(rootpath, "upload\\blog");
 
                 var fileName = Path.GetFileName(file.FileName);
@@ -42,7 +38,7 @@ namespace texim.Helper
                 }
 
 
-                using (var fileSteam = new FileStream(renamedFileName, FileMode.Create))
+                using (var fileSteam = new FileStream(filePath, FileMode.Create))
                 {
                     await file.CopyToAsync(fileSteam);
                 }

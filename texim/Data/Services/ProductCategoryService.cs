@@ -1,5 +1,4 @@
-﻿using texim.Data;
-using texim.Data.DAL;
+﻿using texim.Data.DAL;
 using texim.Data.IDAL;
 using texim.Models;
 using System;
@@ -9,12 +8,16 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace texim.Logic.Services
+namespace texim.Data.Services
 {
     public class ProductCategoryService
     {
-        static IUnitOfWork unitOfWork = new UnitOfWork(new ApplicationDbContext());
-
+        // static IUnitOfWork unitOfWork = new UnitOfWork(new ApplicationDbContext());
+        static IUnitOfWork unitOfWork;
+        public ProductCategoryService(IUnitOfWork _unitOfWork)
+        {
+            unitOfWork = _unitOfWork;
+        }
         public static async Task<IEnumerable<ProductCategory>> GetCategories()
         {
             return await unitOfWork.Repository<ProductCategory>().GetAllAsync();

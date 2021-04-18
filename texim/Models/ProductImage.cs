@@ -24,7 +24,6 @@ namespace texim.Models
         public string Thumb { get; set; }
         public DateTime LastModified { get; set; }
         public bool Status { get; set; }
-        public bool IsDelete { get; set; }
 
         public virtual Product Product { get; set; }
     }

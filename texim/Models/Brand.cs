@@ -18,12 +18,8 @@ namespace texim.Models
         public bool Status { get; set; }
 
         //Initial Fields
-        public int CreateBy { get; set; }
         public DateTime CreateAt { get; set; }
-        public int UpdateBy { get; set; }
         public DateTime UpdateAt { get; set; }
-        public string DeleteBy { get; set; }
-        public DateTime DeleteAt { get; set; }
         public bool IsDelete { get; set; }
 
         //SEO Fields
